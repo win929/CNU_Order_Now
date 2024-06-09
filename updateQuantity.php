@@ -23,23 +23,23 @@ try {
     $foodName = $_POST['foodName'];
     $change = (int)$_POST['change'];
 
-    // OrderDetail에서 해당 아이템의 수량 업데이트
+    // OrderDetail에서 해당 아이템의 수량 업데이트, Cart의 orderdatetime이 NULL인 경우만
     $sql = "UPDATE OrderDetail OD
             SET OD.quantity = OD.quantity + :change,
                 OD.totalPrice = (SELECT F.price FROM Food F WHERE F.foodName = OD.foodName) * (OD.quantity + :change)
             WHERE OD.foodName = :foodName
-            AND OD.id = (SELECT C.id FROM Cart C WHERE C.cno = :cno)";
+            AND OD.id = (SELECT C.id FROM Cart C WHERE C.cno = :cno AND C.orderdatetime IS NULL)";
     $stmt = $conn->prepare($sql);
     $stmt->bindValue(':change', $change, PDO::PARAM_INT);
     $stmt->bindValue(':foodName', $foodName);
     $stmt->bindValue(':cno', $user_id);
     $stmt->execute();
 
-    // 수량이 0개인 아이템 삭제
+    // 수량이 0개인 아이템 삭제, Cart의 orderdatetime이 NULL인 경우만
     $sql_delete = "DELETE FROM OrderDetail 
                    WHERE quantity = 0 
                    AND foodName = :foodName 
-                   AND id = (SELECT C.id FROM Cart C WHERE C.cno = :cno)";
+                   AND id = (SELECT C.id FROM Cart C WHERE C.cno = :cno AND C.orderdatetime IS NULL)";
     $stmt_delete = $conn->prepare($sql_delete);
     $stmt_delete->bindValue(':foodName', $foodName);
     $stmt_delete->bindValue(':cno', $user_id);

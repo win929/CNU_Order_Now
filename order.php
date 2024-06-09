@@ -77,7 +77,7 @@
                         echo "<input type='text' id='minPrice' placeholder='최소 가격'>";
                         echo "<div id='div1'>~</div>";
                         echo "<input type='text' id='maxPrice' placeholder='최대 가격'>";
-                        echo "<button id='searchButton'>검색</button>";
+                        echo "<button id='searchButton' onclick='searchFood()'>검색</button>";
                         echo "</div>";
     
                         // 검색 버튼 클릭 시 음식 목록 조회

@@ -1,7 +1,7 @@
 .button1 {
     /* 화면 정가운데 정렬 */
     display: block;
-    margin: 10 auto;
+    margin: 10px;
     /* 버튼 크기 */
     width: 300px;
     height: 100px;

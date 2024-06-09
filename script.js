@@ -58,22 +58,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 페이지 로드 시 현재 카테고리에 맞는 버튼에 active 클래스를 적용
     setActiveButton();
-
-    document.getElementById('searchButton').addEventListener('click', function() {
-        var foodName = document.getElementById('foodName').value;
-        var minPrice = document.getElementById('minPrice').value;
-        var maxPrice = document.getElementById('maxPrice').value;
-    
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'search.php?foodName=' + foodName + '&minPrice=' + minPrice + '&maxPrice=' + maxPrice, true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                document.getElementById('searchResult').innerHTML = xhr.responseText;
-            }
-        };
-        xhr.send();
-    });
 });
+
+function searchFood() {
+    var foodName = document.getElementById('foodName').value;
+    var minPrice = document.getElementById('minPrice').value;
+    var maxPrice = document.getElementById('maxPrice').value;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'search.php?foodName=' + foodName + '&minPrice=' + minPrice + '&maxPrice=' + maxPrice, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            document.getElementById('searchResult').innerHTML = xhr.responseText;
+        }
+    };
+    xhr.send();
+}
 
 function updateQuantity(foodName, change) {
     // AJAX를 사용하여 수량 업데이트 요청을 보냅니다.
